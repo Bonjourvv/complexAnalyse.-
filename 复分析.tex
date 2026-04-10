@@ -1,0 +1,545 @@
+\documentclass{article}
+\usepackage{indentfirst,amsmath,graphicx,algorithm,listings}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{amsthm}
+\usepackage{xcolor}
+\usepackage[UTF8]{ctex}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{fact}{Fact}
+
+\title{分析期末复习版 }
+\author{v}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{$\mathbb{C}$ 上的函数}
+目前的研究方式是将复数转化为实数。
+\begin{align}
+    f(z)=u(x,y)+iv(x,y),\ \ \text{这里的} \ x=Re\ z \ \ y= Im\ z 
+\end{align}
+在 $ \mathbb{C}  $ 上求极限可以在任意一个方向，因此我们得到了比 $ \mathbb{R}  $ 上更强的 Cauchy-Rienmann 方程
+ \begin{equation}
+    \frac{\partial u}{\partial x}=\frac{\partial v}{\partial y},\frac{\partial v}{\partial x}=-\frac{\partial u}{\partial y}
+ \end{equation}
+
+ 在 $ \mathbb{C}  $上某点可导的函数叫做在此点的全纯(holomorphic)，如果在 $ \mathbb{C} $上全部可导数我们称之为整函数(entire function ),有时候也叫(regular, complex differentiable instead of holomorphic)。于是我们定义算子
+ \begin{equation}
+    \frac{\partial }{\partial z }=\frac{1}{2}(\frac{\partial }{\partial x}-i \frac{\partial }{\partial y}),\ \ \ \frac{\partial }{\partial \bar{z}}=\frac{1}{2}(\frac{\partial }{\partial x}+i \frac{\partial }{\partial y})
+ \end{equation}
+ 就有对任意全纯的函数 $ f $,
+ \begin{equation}
+    \frac{\partial f}{\partial z}=f',\ \ \frac{\partial f}{\partial \bar{z} }=0
+ \end{equation}
+
+ \section{柯西的积分理论}
+ \subsection{路径积分}
+
+我们定义 $ \gamma \left[ 0,1 \right] \rightarrow \mathbb{C}  $ 是一个分段光滑的路径，对于全纯的 $ f:\mathbb{C}\rightarrow \mathbb{C} $,我们定义它沿着 $ \gamma $上的路径积分
+\begin{equation}
+    \int_{0}^{1}f(z)\mathrm{d}z=\int_{\gamma}f(\gamma(t))\mathrm{d}\gamma= \int_{0}^{1}f(\gamma(t))\gamma'(t)\mathrm{d}t  
+\end{equation}
+一般而言, f 连续就可以保证 Riemann 积分存在, 也可以定 义路径积分.
+\begin{remark}
+    可积性的充分条件：
+    \begin{enumerate}
+        \item 函数在闭区间连续
+        \item 函数在闭区间上有界且只有有限个间断点
+        \item 函数在闭区间上单调
+    \end{enumerate}
+
+\end{remark}
+\begin{theorem}
+    如果f连续且有原函数，并且一个路径 $ \gamma $ 起点是 $ \omega_1 $ 终点是 $ \omega_2 $ ， 那么f的路径积分
+    \begin{equation}
+        \int_{\gamma}^{}f(z)\mathrm{d}z=F(\omega_2)-F(\omega_1)
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    这个证明很简单，用（5），把 $ \gamma $ 参数化，把最后一个积分内的部分看成 $ F(\gamma(t)) $ 的导数，就得到了。stein page 23,定理3.2
+\end{proof}
+\begin{corollary}
+    如果 $ \gamma $ 是闭合的，那么
+    \begin{equation}
+        \int_{\gamma}^{}f(z)\mathrm{d}z=0
+    \end{equation}
+\end{corollary}
+\begin{proof}
+    这个证明更简单了，用上面那个定理。
+\end{proof}
+\begin{corollary}
+    如果f在 $ \Omega $上全纯，并且 $ f'= 0$,那么f是一个常数函数
+\end{corollary}
+\begin{proof}
+    这个证明也很简单。就是证明 $ f(x)=f(\omega_0) $处处成立
+    \begin{equation*}
+        \int_{\gamma}^{}f'(z)\mathrm{d}z=f(x)-f(\omega_0)=0
+    \end{equation*}
+\end{proof}
+
+———————————————————\par
+
+
+
+\newpage
+\subsection{Goursat’s theorem}
+
+\begin{theorem}
+    if $ \Omega $ is a open set in $ \mathbb{C} $ and $ T \subset  \omega $ is a triangle whose interior is also contained in $ \Omega $, then 
+    \begin{equation}
+        \int_{T}^{}f(z)\mathrm{d}z=0
+    \end{equation}
+\end{theorem}
+\begin{corollary}
+    如果是一个长方形它也为0，因为长方形可以写成两个三角。
+\end{corollary}
+
+\subsection{Cauchy’s theorem for a disc}
+\begin{theorem}
+    A holomorphic function in a open disc has a primitive in this open disc 
+\end{theorem}
+通过这个定理，和上面的corollary 1,我们得到
+\begin{theorem}[Cauchy’s theorem for a disc]
+    if f is holomorphic in a disc,then 
+    \begin{equation}
+        \int_{\gamma}^{}f(z)\mathrm{d}z=0
+    \end{equation}
+    for any $ \gamma $ closed in this disc.
+\end{theorem}
+
+\begin{corollary}
+    Any holomorphic function in a simply connected domain has a primitive.
+\end{corollary}
+\begin{corollary}
+    If f is holomorphic in the simply connected region $ \Omega $
+then
+\begin{equation}
+    \int_{\gamma}^{}f(z)\mathrm{d}z=0
+\end{equation}
+for any $ \gamma $ closed in $ \Omega $.
+
+\end{corollary}
+
+\textcolor{red}{上面两个推论的证明在第97页}
+\begin{theorem}
+    if $ \gamma_1$ and $ \gamma_2 $ is homotopic,f holomorphic on a open set,  then 
+    \begin{equation}
+        \int_{\gamma_1}^{}f(z)\mathrm{d}z=\int_{\gamma_2}^{}f(z)\mathrm{d}z
+    \end{equation}
+\end{theorem}
+\subsection{Cauchy’s integral formulas}
+
+\begin{theorem}[柯西积分公式]
+    设 f 在开集 $ \Omega $ 全纯, 圆盘 $ D $的闭包在 $ \Omega $ 内部, $ \mathbb{C} $是$  D $的逆时针的一条边界, 那么
+    \begin{equation}
+        f(z)=\frac{1}{2\pi i}\int_{C}\frac{f(\zeta )}{\zeta -z }\mathrm{d}\zeta
+    \end{equation}
+
+\end{theorem}
+
+Cauchy 积分公式意味着全纯函数在一点的值可以由附近的性态确定, 这让古话近 朱者赤, 近墨者黑有了些道理.\par
+一个重要的推论是, 全纯函数可以求导了
+\begin{corollary}
+    f 在 $ z_0 $ 附近全纯，取一条 $ \gamma $ 绕 $ z_0 $ 一圈，得到
+        \begin{equation}
+            f^{(n)}(z_0)=\frac{n!}{2\pi i}  \int_{\gamma}^{}\frac{f(\zeta)}{(\zeta-z_o)^{n+1}}\mathrm{d}\zeta
+        \end{equation}
+\end{corollary}
+
+
+
+\begin{corollary}[ Cauchy inequalitie]
+    如果f在一个开集上全纯，且这个开集包含一个以$ z_0 $为中心的圆盘$ D$的闭包，那么
+    \begin{equation}
+        f^{(n)}(z_0) \leqslant \frac{n! \Vert f \Vert_{C} }{R^n}
+    \end{equation}
+    where $ \Vert f \Vert_{C}=sup_{z \in C}\left\lvert f(z) \right\rvert $ denotes the supremum of $ \left\lvert f \right\rvert $ on the boundary circle C.
+\end{corollary}
+\begin{proof}
+    就用上面的柯西积分公式就可以证明。
+\end{proof}
+
+\subsection{全纯即解析}
+
+解析可以推出全纯是非常简单的，因为解析意味着 $ f(z)=\sum_{n=0}^{\infty}a_n(z-z_0)^n $, 所以全纯。\par
+反之，如果它全纯，通过柯西积分公式和一些变换就能得到 
+\begin{equation*}
+    f(z)=\sum_{n=0}^{\infty}c_nf(z-z_0)^n
+\end{equation*}
+\begin{equation*}
+    c_n=\frac{1}{2i\pi}\int_{\gamma}^{}\frac{f(\zeta)}{(\zeta-z_0)^{n+1}}\mathrm{d}\zeta
+\end{equation*}
+\subsection{Cauchy 积分公式的应用}
+
+\begin{theorem}[Liouville 定理]
+    有界的整函数（在整个复平面上解析的函数称为整函数）是常数。
+\end{theorem}
+\begin{proof}
+    用上面的柯西不等式，一阶导。再用corolary 2.
+    我们想要证明 $ f'=0 $, 在$ n=1 $的时候
+    \begin{equation*}
+        f'(z_0)\leqslant \frac{\Vert f \Vert_C}{R}
+    \end{equation*}
+    当 $ R\rightarrow\infty $ $ f'=0 $
+\end{proof}
+
+进一步我们可以证明代数基本定理。
+\begin{theorem}[Fundamental theorem of algebra]
+    n次复数多项式最少有一个复数根，进而有n个根
+\end{theorem}
+
+\begin{proof}
+    先用反证法，we assume that $ p(z) $has non zero solution,then $ \lim_{z\rightarrow \infty}\frac{1}{p(z)}=0 $,所以我们可以找到一个A，使得 $ z> A $时 $\frac{1}{p(z)} $是一个有界整函数，所以是个常数，不符合我们的假设，所以 $ p(z) $有解
+\end{proof}
+\begin{theorem}[Morera’s theorem]
+    如果f是一个连续函数，满足对于所有包含在开圆盘D上的三角形T，我们都有
+    \begin{equation*}
+        \int_{T}^{}f(z)\mathrm{d}z=0
+    \end{equation*}
+    那么f全纯。
+\end{theorem}
+
+
+
+Cauchy 积分公式还可以证明极大模原理, 还可以证明解析函数在开集内部一
+点不能取到极小模长, 除非这一点的模长为 0.
+\begin{theorem}[Maximum modulus principle]
+    f是 $ \Omega $ 中的全纯函数且不是常数，那么f在$ \Omega $内取不到最大值
+\end{theorem}
+
+Schwarz 引理也是极大模引理的推论.
+\newpage
+\section{从全纯到亚纯}
+\subsection{亚纯函数，孤立奇点}
+\begin{definition}
+    在复分析中，一个定义在复平面的开子集上的亚纯函数f，除一个或者若干个孤立点集合之外全纯，我们把这样的函数叫做亚纯函数，且这些孤立点都是该函数的极点。
+\end{definition}
+\begin{remark}
+    \begin{enumerate}
+        \item 零点是指 $ z_0:\ f(z_0)=0 $
+        \item 极点（pole）是$\lim_{z\rightarrow z_0}\left\lvert f(z) \right\rvert=\infty $
+        \item 孤立奇点（Isolated Singularity）,分为可去奇点（Removable Singularity）f bounded near $ z_0$，极点，和本质极点三种（比如 $ e^{\frac{1}{z}} $在0处）。
+        \item 函数收敛意味着没有孤立极点
+    \end{enumerate}
+\end{remark}
+\subsection{留数定理}
+\begin{theorem}[留数定理]
+    f 在除了极点 $ z_0,\dots, z_n$之外的开集合上全纯，C和C的interior包含于这个开集合，我们有
+    \begin{equation}
+        \int_{C}f(z)\mathrm{d}z=2\pi i \sum_{k=0}^{n}Res z_kf
+    \end{equation}
+    where \[Resz_kf=lim_{z\rightarrow z_k}(z-z_k)f(z) \]
+\end{theorem}
+\subsection{辐角原理}
+
+\begin{theorem}[Argument principle]
+    如果f是某个围道C上的亚纯函数，f在C上没有零点和极点那么
+    \begin{equation}
+        \int_{C}^{}\frac{f'(z)}{f(z)}=2\pi i (N-P)
+    \end{equation}
+    这里N和P分别代表围道内f的零点和极点个数，零点计重数，极点计阶数。
+\end{theorem}
+由此可以证明 Rouché 定理和开映射定理
+\begin{theorem}[ Rouché 定理]
+    f,g是定义在开集 $ \Omega $上的全纯函数，C是一个简单闭曲线,如果 $ \left\lvert f(z)-g(z)  \right\rvert<\left\lvert f(z) \right\rvert $,那么f,g在C内零点数量相同。
+\end{theorem}
+\begin{theorem}[Open mapping theorem]
+    if $ \Omega $ is a open set, f is holomorphic,then for a open set $ U \subset \Omega $, $ f(u) $is open. 
+\end{theorem}
+
+\textcolor{red}{定理13，14，10的证明没有看}
+\begin{theorem}
+    if F(z,s) satisfy
+    \begin{enumerate}
+        \item F continue on $ \left[ 0,1 \right] $
+        \item F(z) holomorphic
+    \end{enumerate}
+    then $ \int_{0}^{1} F \mathrm{d}s $ holomorphic
+\end{theorem}
+
+\newpage
+\section{幂级数}
+\subsection{收敛半径的判别}
+
+\begin{enumerate}
+    \item \textbf{Cauchy-Hadamard 定理}：Cauchy-Hadamard 定理提供了计算收敛半径的一种直接方法。设复变函数的幂级数表示为 $\sum_{n=0}^{\infty} c_n(z - z_0)^n$，其中 $c_n$ 是系数，$z_0$ 是级数展开的中心点。令 $R$ 表示收敛半径，该定理给出：
+    \[R = \frac{1}{\limsup_{n \to \infty} \sqrt[n]{|c_n|}}\]
+    其中，$\limsup$ 表示极限上确界。计算这个极限，可以得到收敛半径 $R$。
+    \item \textbf{比值判别法}：比值判别法是通过计算级数相邻项的比值来判断级数的收敛性。对于幂级数 $\sum_{n=0}^{\infty} c_n(z - z_0)^n$，考虑相邻项的比值：
+    \[\lim_{n \to \infty} \left|\frac{c_{n+1}}{c_n}\right| = L\]
+    若 $L < 1$，则级数绝对收敛，收敛半径为 $R = \frac{1}{L}$；若 $L > 1$，则级数发散；若 $L = 1$，则收敛半径需要用其他方法判断。
+    \item \textbf{根值判别法}：根值判别法是通过计算级数项的根的极限来判断级数的收敛性。对于幂级数 $\sum_{n=0}^{\infty} c_n(z - z_0)^n$，考虑级数项的根的极限：
+    \[\lim_{n \to \infty} \sqrt[n]{|c_n|} = L\]
+    若 $L < 1$，则级数绝对收敛，收敛半径为 $R = \frac{1}{L}$；若 $L > 1$，则级数发散；若 $L = 1$，则收敛半径需要用其他方法判断。
+    \item 形如 $ a_nz^{n!} $这样的幂级数，我们期待z这一项收敛到0，所以考虑的都是z的取值范围。
+\end{enumerate}
+
+
+
+
+\newpage
+
+
+\section{gamma 函数与zeta函数}
+\begin{definition}
+    For $ s>0 $, the gamma function is defined by 
+    \[ \Gamma(s)=\int_{0}^{\infty}e^{-t}t^{s-1}\mathrm{d}t\]
+\end{definition}
+
+
+
+
+Gamma 函数对于所有的 $ s>0 $ 是收敛的，且在 $ t=0 $ 附近可积，在 $ t $ 足够大的时候被指数函数控制。我们接下来看如下性质。
+\begin{proposition}
+    The gamma function tends to an analytic function in the half-plane $ Re(s)>0 $ and is still given there by the integral formula.
+\end{proposition}
+%好吧，看起来我应该先去看前面的定义。
+
+
+\begin{definition}
+    The Rienmann zeta function is defined for real $ s >1$ by the convergent series \[ \zeta(s)=\sum_{n=1}^{\infty}\frac{1}{n^s} \]
+\end{definition}
+
+\newpage
+\section{概率论部分}
+
+\subsection{收敛性}
+\begin{definition}[依概率收敛]
+    \[ \forall \epsilon >0\ \ \ \ \ lim_{n\rightarrow \infty }P(|X_n-X|>\epsilon)=1 \]
+\end{definition}
+
+
+
+
+\newpage
+\subsection{条件期望} 
+\subsubsection{条件期望的定义}
+马尔可夫链和随机过程都定义在martingale 上，鞅定义在条件期望上。
+
+
+
+\begin{definition}[ 条件期望]
+    给一个概率空间$ (\Omega, \mathcal{F}_0, P) $, 和一个 $ \sigma $域 $ \mathcal{F}\subset \mathcal{F}_0 $,随机变量 $ X \in \mathcal{F} $,  且 $ \mathbb{E}(X)<\infty $ \par
+    若存在随机变量 $ Y\in \mathcal{F}_0 $使得对于任意的 $ A\in \mathcal{F} $,都有 \[ \int_{A} X \mathrm{d}P= \int_{A}Y \mathrm{d}P \]称 $ Y $为 $ X $的条件期望，记做 $ \mathbb{E}(X|\mathcal{F}) $
+
+\end{definition}
+
+
+以下几个命题说明条件期望是性质良好的
+\begin{theorem}[可积]
+    条件期望是可积的
+\end{theorem}
+
+\begin{theorem}[存在且唯一]
+    给定X和$ \mathcal{F} $,条件期望总是存在
+\end{theorem}
+
+\begin{theorem}[几乎处处相等]
+    if $ X_1=X_2  $ on B, then $ \mathbb{E}(X_1|\mathcal{F})=\mathbb{E}(X_2|\mathcal{F}) $ a.s on B
+\end{theorem}
+
+
+
+
+\subsubsection{条件期望的性质}
+\begin{remark}
+    $ \mathbb{E}(\mathbb{E}(X|\mathcal{F}))=\mathbb{E}(X) $直观解释就是在所有可能的 $ \mathcal{F} $条件下对X求期望，也就是X的整体平均值。
+\end{remark}
+ \begin{theorem}[最基础三条]
+    \begin{enumerate}
+        \item 线性： $ \mathbb{E}(aX+Y|\mathcal{F})=a\mathbb{E}(X|\mathcal{F}) +\mathbb{E}(Y|\mathcal{F})$
+        \item if $ X \leqslant Y $ ,$ \mathbb{E}(X|\mathcal{F}) \leqslant \mathbb{E}(Y|\mathcal{F}) $
+        \item if $ X_n \geqslant 0  $且 $ X_n \rightarrow X $,then $ \mathbb{E}(X_n|\mathcal{F}) \rightarrow\mathbb{E}(X|\mathcal{F}) $
+    \end{enumerate}
+ \end{theorem}
+\begin{theorem}[Jensen不等式]
+    $ \varphi ( \mathbb{E}(X|\mathcal{F}) ) \leqslant  \mathbb{E}(\varphi (X)|\mathcal{F}) $
+\end{theorem}
+\begin{theorem}[压缩映射]
+    $ \mathbb{E}(|\mathbb{E}(X|\mathcal{F})|^p) \leqslant \mathbb{E}|X|^p$, $ p \geqslant 1 $
+\end{theorem}
+条件期望可以看成是随机变量与 $ \sigma $ 域到另一个随机变量的映射. 除了随机变量方面的性质，条件期望还有下列关于 $ \sigma $ 域的性质：
+
+\begin{theorem}[下列等式几乎处处成立]
+     
+    \begin{enumerate}
+        \item  if $X \in \mathcal{F}$ 则 $ \mathbb{E}(X|\mathcal{F})=\mathbb{E}(X) $, 对于常数C，$ \mathbb{E}(C|\mathcal{F})=C $
+        \item if $ \mathcal{F}\subset \mathcal{G} $且 $ \mathbb{E}(X|\mathcal{G})\subset \mathcal{F} $,那么 $ \mathbb{E}(X|\mathcal{F})=\mathbb{E}(X|\mathcal{G}) $
+        \item if $ \mathcal{F}_1 \subset \mathcal{F}_2 $,then $ \mathbb{E}(\mathbb{E}(X|\mathcal{F}_1)|\mathcal{F}_2) =\mathbb{E}(\mathbb{E}(X|\mathcal{F}_2)|\mathcal{F}_1)= \mathbb{E}(X|\mathcal{F}_1)$
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    $ X \in \mathcal{F} $, $ E|x|,E|XY| < \infty  $, 则$ E(XY|\mathcal{F})=XE(Y|\mathcal{F}) $
+\end{theorem}
+
+
+
+
+\newpage
+
+
+
+\subsection{鞅}
+
+\begin{definition}[filtration]
+    A sequence of $ \sigma$-algebras $ \mathcal{F}_0, \mathcal{F}_1 \dots \mathcal{F}_n  $ with the property that $  \mathcal{F}_0\subset  \mathcal{F}_1 \dots \subset \mathcal{F}_n \subset \mathcal{F} $, such a sequence is called filtration.
+\end{definition}
+
+\begin{definition}[martingale]
+   A process $ M_0,M_1,\dots $ is called martingale if  $ \mathbb{E}(M_{t}|\mathcal{F}_s)=M_s $
+\end{definition}
+
+通俗解释一下这个东西，我们玩一场公平的游戏，就是说我们期待得到的钱 $ M_t $，永远等于一开始的钱 $ M_s$
+
+\par
+题外话，我终于明白了什么叫 $ F_k $ k可测，就是说相对于它是可测的。\par
+具体来说，设 $(\Omega, \mathcal{F}, P)$ 是一个概率空间，其中 $\Omega$ 是样本空间，$\mathcal{F}$ 是一个 $\sigma$ 代数，$P$ 是一个概率测度。如果随机变量 $X: \Omega \rightarrow \mathbb{R}$ 是可测的，那么对于任意的 $B \in \mathcal{B}(\mathbb{R})$（这里 $\mathcal{B}(\mathbb{R})$ 是实数轴上的 Borel $\sigma$ 代数），事件 ${X \in B}$ 是 $\mathcal{F}$ 中的事件，即 ${X \in B} \in \mathcal{F}$。
+
+这意味着我们可以通过 $\mathcal{F}$ 中提供的信息来判断事件 ${X \in B}$ 是否发生。换句话说，$\mathcal{F}$ 中包含了足够的信息，使得我们可以根据这些信息来预测或者确定随机变量 $X$ 的取值落在任何给定的实数集合 $B$ 中的概率。
+
+总之，一个随机变量相对于一个 $\sigma$ 代数是可测的，意味着这个随机变量的取值与该 $\sigma$ 代数中提供的信息是兼容的，这个随机变量的取值可以由这个 $\sigma$ 代数中的事件来确定或者预测。
+
+\newpage
+
+
+
+
+
+
+\section{随机过程，随机微分方程与金融}
+\subsection{布朗运动}
+
+\begin{definition}[标准布朗运动]
+    是一个满足以下条件的随机过程 $ W_t $
+    \begin{enumerate}
+        \item 初始条件： $ W_0=0 $
+        \item 正态度冷增量： $ W_s-W_t $服从均值为0 方差为 $ s-t $ 的正态分布
+        \item 独立增量  $ W_s-W_t $ 与 $ W_u $  相互独立
+        \item 连续性 $ W_t $连续
+    \end{enumerate}
+
+\end{definition}
+
+
+\begin{definition}[几何布朗运动]
+    几何布朗运动描述的是一个随机变量的对数变化，其数学表达式为：
+        \[ \mathrm{d}S_t=\mu S_t \mathrm{d}t+\sigma S_t \mathrm{d}W_t \]
+\end{definition}
+
+
+\subsection{Ito’s formula}
+\subsection{泊松过程}
+\begin{definition}[指数分布]
+  
+    
+    \begin{enumerate}
+        \item $ f(t)=\lambda e^{-\lambda t} $
+        \item $  \mathbf{F}(t)=\mathbb{P}(T \leqslant t)=1-e^{-\lambda t}$
+        \item 期望等于 $ \frac{1}{\lambda} $
+        \item 方差 $ \frac{1}{\lambda^2} $
+    \end{enumerate}
+\end{definition}
+\begin{theorem}[指数分布的无记忆]
+    \begin{equation}
+        \mathbb{P}(T>t+s|T>t)=\mathbb{P}(T>s)
+    \end{equation}
+\end{theorem}
+
+
+\begin{remark}
+    指数分布是唯一具有无记忆性的连续概率分布。
+\end{remark}
+
+
+\begin{proposition}[指数分布的性质]
+    \begin{enumerate}
+        \item $ \mathbb{E}\min(T_1,\dots,T_n)=\frac{1}{\lambda_1+\dots,+\lambda_n} $
+        \item $ \max(T_1,T_2)=T_1+T_2-\min(T_1,T_2) $,因此期望是 $ \frac{1}{\lambda_1}+\frac{1}{\lambda_2}-\frac{1}{\lambda_1 \lambda_2} $
+        \item $ \mathbb{P}(T_1<T_2)=\frac{\lambda_1}{\lambda_1+\lambda_2} $
+        \item 上面那个的推论， $ T_i  $是最小随机变量的概率 $ \mathbb{P}(T_i=min(T_1,\dots,T_n))=\frac{\lambda_1}{\sum \lambda_n}$
+        \item 具有相同指数分布的随机变量的和服从伽马分布，期望 $ \frac{n}{\lambda} $ 方差 $ \frac{n}{\lambda^2} $,概率密度为 $ f(t)=\lambda e^{-\lambda t}\frac{(\lambda t)^{n-1}}{(n-1)!} $
+    \end{enumerate}
+\end{proposition}
+
+\begin{definition}[泊松分布]
+    $\mathbb{P}(X=k)=e^{-\lambda}\frac{\lambda^k}{k!}$
+\end{definition}
+
+
+\begin{remark}
+    when $ n\rightarrow \infty $ 二项分布 $ B(n,\frac{\lambda}{n})\rightarrow poi(\lambda) $
+\end{remark}
+
+
+
+\begin{definition}[泊松过程]
+   假设 $ \tau_1,\dots,\tau_n    $ 相互独立且服从指数分布$ \varepsilon (\lambda) $，我们定义 $ T_n=\sum_{i=1}^{n}\tau_i,T_0=0,n \geqslant 1 $
+\par 定义   $ N(s)=\max   \left\{  n:T_n \leqslant s\right\} $, $ N(S) $称为泊松随机过程。
+
+
+\end{definition}
+这个定义并不太显然。我们把 $ \tau_n $理解成 第n个顾客和第n+1个顾客到达商店的时间间隔， $ T_n $理解成第n个顾客到达的时刻， $ N(s) $理解成在时刻s之前到达的顾客数量。
+因此： $ \mathbb{P}(N(s)=n) $可以理解为在时刻s之前到达的顾客数量是n 的概率。N(s)服从均值为 $ \lambda s $ 的泊松分布。
+\begin{equation}
+    \mathbb{P}(N(s)=n)=e^{-\lambda s}\frac{(\lambda s)^n}{n!}
+\end{equation}
+
+
+\begin{proposition}[两组等价关系]
+    \begin{enumerate}
+        \item t时刻的计数不小于n\[ \left[ N(t) \geqslant n       \right] = \left[ T(n)\leqslant t \right] \]\textcolor{blue}{t时刻的计数不小于n,也就是第n个客户到达的时候的时间不早于t}
+        \item t 时刻的计数为n \[ \left[ N(t)=n \right]=\left[ T_n \leqslant t \leqslant T_{n+1} \right] \]\textcolor{blue}{t时刻介于第n和n+1个顾客之间}
+    \end{enumerate}
+\begin{definition}[另一个定义]
+    \begin{enumerate}
+        \item N(0)=0
+        \item N(t+s)-N(s)服从泊松分布，均值为 $ \lambda T $, $ N(t) $ 也是
+        \item 独立增量，也就是 $ N(t_1)-N(t_0),\dots, N(t_{n})-N(t_{n-1}) $ 均相互独立。 
+    \end{enumerate}
+    
+\end{definition}
+
+\begin{remark}
+    通过这个定义我们能看出平稳增量性。
+\end{remark}
+
+
+
+\begin{corollary}
+    $ N(t+s) -N(s)$ 是一个速度为 $ \lambda $的泊松过程，与 $ N(r),0 \leqslant r \leqslant s $ 相互独立
+\end{corollary}
+
+\begin{corollary}[马氏性]
+    假设 $ N(r)=k_1 $, $ N(s)=k_2 $,    $ N(s+t)=k_3 , k_1 \leqslant k_2 \leqslant k_3$,我们有
+    \[ \mathbb{P}\left[  N(s+t)=k_3| N(r)=k_1,N(s)=k_2  \right] \]
+    \[ =\mathbb{P}\left[ N(s+t)-N(s)=k_3-k_2 \right]|N(s)-N(r)=k_2-k_1,N(r)-N(0)=k_1 \]
+    \[ = \mathbb{P}\left[ N(s+t)-N(s)=k_3-k_2 \right] \]
+\end{corollary}
+
+
+
+
+
+
+\end{proposition}
+
+
+
+
+
+
+
+\end{document}
